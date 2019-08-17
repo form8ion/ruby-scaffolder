@@ -1,0 +1,6 @@
+_extends: .github
+repository:
+  name: ruby-scaffolder
+  description: opinionated scaffolder for Ruby projects
+  homepage: 'https://npm.im/@form8ion/ruby-scaffolder'
+  private: false
