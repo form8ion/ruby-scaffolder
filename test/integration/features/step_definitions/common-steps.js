@@ -1,10 +1,24 @@
+import {promises} from 'fs';
+import stubbedFs from 'mock-fs';
 // import bddStdIn from 'bdd-stdin';
 import {assert} from 'chai';
 import any from '@travi/any';
-import {Given, Then, When} from 'cucumber';
+import {After, Before, Given, Then, When} from 'cucumber';
 import {scaffold} from '../../../../src';
 
 let scaffoldResult;
+
+Before(async function () {
+  // work around for overly aggressive mock-fs, see:
+  // https://github.com/tschaub/mock-fs/issues/213#issuecomment-347002795
+  require('mock-stdin'); // eslint-disable-line import/no-extraneous-dependencies
+
+  stubbedFs({});
+});
+
+After(function () {
+  stubbedFs.restore();
+});
 
 Given('the default answers are chosen', async function () {
   return undefined;
@@ -37,6 +51,12 @@ When(/^the project is scaffolded$/, async function () {
     vcs: this.vcs,
     ciServices: {[any.word()]: {scaffolder: foo => ({foo}), public: true}}
   });
+});
+
+Then('the expected files are generated', async function () {
+  const rubyVersion = await promises.readFile(`${process.cwd()}/.ruby-version`);
+
+  assert.equal(rubyVersion.toString(), '2.6.3');
 });
 
 Then('the expected results are returned to the project scaffolder', async function () {
