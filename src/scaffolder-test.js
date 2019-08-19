@@ -2,6 +2,7 @@ import {assert} from 'chai';
 import sinon from 'sinon';
 import any from '@travi/any';
 import * as rubyVersionScaffolder from './ruby-version';
+import * as rakeScaffolder from './rake';
 import {scaffold} from './scaffolder';
 
 suite('scaffolder', () => {
@@ -11,6 +12,7 @@ suite('scaffolder', () => {
     sandbox = sinon.createSandbox();
 
     sandbox.stub(rubyVersionScaffolder, 'default');
+    sandbox.stub(rakeScaffolder, 'default');
   });
 
   teardown(() => sandbox.restore());
@@ -21,6 +23,7 @@ suite('scaffolder', () => {
     const result = await scaffold({projectRoot});
 
     assert.calledWith(rubyVersionScaffolder.default, projectRoot);
+    assert.calledWith(rakeScaffolder.default, projectRoot);
     assert.equal(result.verificationCommand, 'rake');
   });
 });

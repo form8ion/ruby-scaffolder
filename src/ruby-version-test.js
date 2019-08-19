@@ -1,4 +1,4 @@
-import {promises} from 'fs';
+import {promises as fsPromises} from 'fs';
 import {assert} from 'chai';
 import sinon from 'sinon';
 import any from '@travi/any';
@@ -10,7 +10,7 @@ suite('ruby-version', () => {
   setup(() => {
     sandbox = sinon.createSandbox();
 
-    sandbox.stub(promises, 'writeFile');
+    sandbox.stub(fsPromises, 'writeFile');
   });
 
   teardown(() => sandbox.restore());
@@ -20,6 +20,6 @@ suite('ruby-version', () => {
 
     await scaffoldRubyVersion(projectRoot);
 
-    assert.calledWith(promises.writeFile, `${projectRoot}/.ruby-version`, '2.6.3');
+    assert.calledWith(fsPromises.writeFile, `${projectRoot}/.ruby-version`, '2.6.3');
   });
 });

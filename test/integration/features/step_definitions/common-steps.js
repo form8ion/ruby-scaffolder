@@ -1,4 +1,6 @@
-import {promises} from 'fs';
+import {exists, promises as fsPromises} from 'fs';
+import {promisify} from 'util';
+import {resolve} from 'path';
 import stubbedFs from 'mock-fs';
 // import bddStdIn from 'bdd-stdin';
 import {assert} from 'chai';
@@ -8,12 +10,19 @@ import {scaffold} from '../../../../src';
 
 let scaffoldResult;
 
+const {readFile} = fsPromises;
+const existsAsync = promisify(exists);
+
 Before(async function () {
   // work around for overly aggressive mock-fs, see:
   // https://github.com/tschaub/mock-fs/issues/213#issuecomment-347002795
   require('mock-stdin'); // eslint-disable-line import/no-extraneous-dependencies
 
-  stubbedFs({});
+  stubbedFs({
+    templates: {
+      'Rakefile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Rakefile.rb'))
+    }
+  });
 });
 
 After(function () {
@@ -54,9 +63,14 @@ When(/^the project is scaffolded$/, async function () {
 });
 
 Then('the expected files are generated', async function () {
-  const rubyVersion = await promises.readFile(`${process.cwd()}/.ruby-version`);
+  const projectRoot = process.cwd();
+  const [rubyVersion, rakefileExists] = await Promise.all([
+    readFile(`${projectRoot}/.ruby-version`),
+    existsAsync(`${projectRoot}/Rakefile`)
+  ]);
 
   assert.equal(rubyVersion.toString(), '2.6.3');
+  assert.isTrue(rakefileExists);
 });
 
 Then('the expected results are returned to the project scaffolder', async function () {
