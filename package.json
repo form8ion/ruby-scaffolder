@@ -66,5 +66,7 @@
     "sinon": "^7.4.1",
     "travis-lint": "^1.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "execa": "^2.0.4"
+  }
 }

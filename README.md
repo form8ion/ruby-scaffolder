@@ -18,6 +18,14 @@ opinionated scaffolder for Ruby projects
 $ npm install @form8ion/ruby-scaffolder --save
 ```
 
+### Dependencies
+
+It is expected that [rbenv](https://github.com/rbenv/rbenv) is available for
+managing [Ruby](https://www.ruby-lang.org/en/) versions. This scaffolder will
+leverage [rbenv](https://github.com/rbenv/rbenv) to install the version of
+[Ruby](https://www.ruby-lang.org/en/) that is defined in the generated
+`.ruby-version` file.
+
 ## Contributing
 
 <!-- contribution badges -->

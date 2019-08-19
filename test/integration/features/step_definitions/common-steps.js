@@ -3,9 +3,11 @@ import {promisify} from 'util';
 import {resolve} from 'path';
 import stubbedFs from 'mock-fs';
 // import bddStdIn from 'bdd-stdin';
+import sinon from 'sinon';
 import {assert} from 'chai';
 import any from '@travi/any';
 import {After, Before, Given, Then, When} from 'cucumber';
+import * as execa from '../../../../thirdparty-wrappers/execa';
 import {scaffold} from '../../../../src';
 
 let scaffoldResult;
@@ -23,6 +25,9 @@ Before(async function () {
       'Rakefile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Rakefile.rb'))
     }
   });
+
+  this.sinonSandbox = sinon.createSandbox();
+  this.sinonSandbox.stub(execa, 'default');
 });
 
 After(function () {
