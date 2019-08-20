@@ -22,7 +22,8 @@ Before(async function () {
 
   stubbedFs({
     templates: {
-      'Rakefile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Rakefile.rb'))
+      'Rakefile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Rakefile.rb')),
+      'Gemfile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Gemfile.rb'))
     }
   });
 
@@ -69,13 +70,15 @@ When(/^the project is scaffolded$/, async function () {
 
 Then('the expected files are generated', async function () {
   const projectRoot = process.cwd();
-  const [rubyVersion, rakefileExists] = await Promise.all([
+  const [rubyVersion, rakefileExists, gemfileExists] = await Promise.all([
     readFile(`${projectRoot}/.ruby-version`),
-    existsAsync(`${projectRoot}/Rakefile`)
+    existsAsync(`${projectRoot}/Rakefile`),
+    existsAsync(`${projectRoot}/Gemfile`)
   ]);
 
   assert.equal(rubyVersion.toString(), '2.6.3');
   assert.isTrue(rakefileExists);
+  assert.isTrue(gemfileExists);
 });
 
 Then('the expected results are returned to the project scaffolder', async function () {
