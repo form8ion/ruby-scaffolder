@@ -24,5 +24,6 @@ suite('ruby-version', () => {
 
     assert.calledWith(fsPromises.writeFile, `${projectRoot}/.ruby-version`, '2.6.3');
     assert.calledWith(execa.default, 'rbenv', ['install']);
+    assert.isTrue(execa.default.calledAfter(fsPromises.writeFile));
   });
 });
