@@ -23,7 +23,8 @@ Before(async function () {
   stubbedFs({
     templates: {
       'Rakefile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Rakefile.rb')),
-      'Gemfile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Gemfile.rb'))
+      'Gemfile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Gemfile.rb')),
+      'markdownlint-style.rb': await readFile(resolve(__dirname, '../../../../', 'templates/markdownlint-style.rb'))
     }
   });
 
