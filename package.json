@@ -68,6 +68,6 @@
   },
   "dependencies": {
     "@travi/cli-messages": "^1.0.1",
-    "execa": "^2.0.4"
+    "execa": "^3.0.0"
   }
 }
