@@ -52,7 +52,7 @@
     "chai": "4.2.0",
     "codecov": "3.7.0",
     "cucumber": "6.0.2",
-    "cz-conventional-changelog": "3.0.2",
+    "cz-conventional-changelog": "3.2.0",
     "gherkin-lint": "4.0.0",
     "husky": "4.0.3",
     "mocha": "7.0.1",
