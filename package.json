@@ -35,7 +35,8 @@
     "test:integration": "run-s 'test:integration:base -- --profile noWip'",
     "test:integration:base": "DEBUG=any cucumber-js test/integration --profile base",
     "test:integration:debug": "DEBUG=test run-s test:integration",
-    "test:integration:wip": "run-s 'test:integration:base -- --profile wip'"
+    "test:integration:wip": "run-s 'test:integration:base -- --profile wip'",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/register": "7.16.5",
