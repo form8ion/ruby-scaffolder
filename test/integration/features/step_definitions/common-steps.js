@@ -5,7 +5,7 @@ import stubbedFs from 'mock-fs';
 import sinon from 'sinon';
 import {assert} from 'chai';
 import any from '@travi/any';
-import {After, Before, Given, Then, When} from 'cucumber';
+import {After, Before, Given, Then, When} from '@cucumber/cucumber';
 import * as execa from '../../../../thirdparty-wrappers/execa';
 import {scaffold} from '../../../../src';
 
