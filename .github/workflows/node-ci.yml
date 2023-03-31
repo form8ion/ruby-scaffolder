@@ -3,7 +3,6 @@ name: Node.js CI
   push:
     branches:
       - master
-      - alpha
       - beta
       - renovate/**
   pull_request:
@@ -17,33 +16,18 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
+      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3
       - name: Setup node
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
         with:
-          node-version: ${{ steps.nvm.outputs.NVMRC }}
-      - uses: bahmutov/npm-install@v1
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm clean-install
       - run: npm test
-      - name: Upload coverage data to Codecov
-        run: npm run coverage:report
+      - uses: codecov/codecov-action@v3
   release:
-    needs: verify
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
-      - name: Setup node
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
-        with:
-          node-version: ${{ steps.nvm.outputs.NVMRC }}
-      - uses: bahmutov/npm-install@v1
-      - name: semantic-release
-        run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+    needs:
+      - verify
+    uses: form8ion/.github/.github/workflows/release-package.yml@master
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}

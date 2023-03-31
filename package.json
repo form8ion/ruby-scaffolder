@@ -3,20 +3,13 @@
   "description": "opinionated scaffolder for Ruby projects",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.es.js",
-  "sideEffects": false,
-  "files": [
-    "lib/",
-    "templates/"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
+  "author": "Matt Travi <npm@travi.org> (https://matt.travi.org/)",
   "repository": "form8ion/ruby-scaffolder",
   "bugs": "https://github.com/form8ion/ruby-scaffolder/issues",
   "homepage": "https://npm.im/@form8ion/ruby-scaffolder",
-  "author": "Matt Travi <npm@travi.org> (https://matt.travi.org/)",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.es.js",
+  "sideEffects": false,
   "scripts": {
     "test": "npm-run-all --print-label --parallel lint:* --parallel test:*",
     "lint:js": "eslint . --cache",
@@ -29,17 +22,28 @@
     "build:js": "rollup --config",
     "watch": "run-s 'build:js -- --watch'",
     "prepack": "run-s build",
-    "test:unit": "nyc run-s test:unit:base",
+    "test:unit": "cross-env NODE_ENV=test c8 run-s test:unit:base",
     "test:unit:base": "DEBUG=any mocha src/**/*-test.js",
-    "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "test:integration": "run-s 'test:integration:base -- --profile noWip'",
     "test:integration:base": "DEBUG=any cucumber-js test/integration --profile base",
     "test:integration:debug": "DEBUG=test run-s test:integration",
     "test:integration:wip": "run-s 'test:integration:base -- --profile wip'",
     "prepare": "husky install"
   },
+  "files": [
+    "lib/",
+    "templates/"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@travi/cli-messages": "^1.0.1",
+    "execa": "^5.0.0"
+  },
   "devDependencies": {
     "@babel/register": "7.21.0",
+    "@cucumber/cucumber": "9.1.0",
     "@form8ion/babel-preset": "1.6.99",
     "@form8ion/commitlint-config": "1.0.47",
     "@form8ion/eslint-config": "5.0.28",
@@ -49,24 +53,19 @@
     "@travi/any": "2.1.8",
     "ban-sensitive-files": "1.9.18",
     "bdd-stdin": "0.2.0",
+    "c8": "7.13.0",
     "chai": "4.3.7",
-    "codecov": "3.8.3",
-    "@cucumber/cucumber": "9.1.0",
+    "cross-env": "7.0.3",
     "cz-conventional-changelog": "3.3.0",
     "gherkin-lint": "4.2.2",
     "husky": "8.0.3",
     "mocha": "10.2.0",
     "mock-fs": "5.2.0",
     "npm-run-all": "4.1.5",
-    "nyc": "15.1.0",
     "remark-cli": "11.0.0",
     "rimraf": "4.4.1",
     "rollup": "3.20.2",
     "rollup-plugin-auto-external": "2.0.0",
     "sinon": "15.0.3"
-  },
-  "dependencies": {
-    "@travi/cli-messages": "^1.0.1",
-    "execa": "^5.0.0"
   }
 }
