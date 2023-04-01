@@ -35,7 +35,8 @@
     "templates/"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "dependencies": {
     "@travi/cli-messages": "^1.0.1",
