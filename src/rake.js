@@ -1,11 +1,11 @@
-import {resolve} from 'path';
+import {resolve} from 'node:path';
+import {promises as fs} from 'node:fs';
 import {info} from '@travi/cli-messages';
-import {copyFile} from '../thirdparty-wrappers/fs';
 
 export default async function (projectRoot) {
   info('Configuring Rake');
 
-  await copyFile(resolve(__dirname, '..', 'templates', 'Rakefile.rb'), `${projectRoot}/Rakefile`);
+  await fs.copyFile(resolve(__dirname, '..', 'templates', 'Rakefile.rb'), `${projectRoot}/Rakefile`);
 
   return {gems: ['rake']};
 }

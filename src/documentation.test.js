@@ -1,12 +1,12 @@
-import {assert} from 'chai';
+import {describe, expect, it} from 'vitest';
+
 import scaffoldDocumentation from './documentation';
 
-suite('documentation', () => {
-  test('that contribution details are defined', () => {
+describe('documentation', () => {
+  it('should define contribution details', () => {
     const documentation = scaffoldDocumentation();
 
-    assert.equal(
-      documentation.contributing,
+    expect(documentation.contributing).toEqual(
       `### Dependencies
 
 \`\`\`sh
