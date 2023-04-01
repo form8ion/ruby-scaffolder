@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@travi/cli-messages": "^1.0.1",
-    "execa": "^5.0.0"
+    "execa": "^7.0.0"
   },
   "devDependencies": {
     "@babel/register": "7.21.0",
