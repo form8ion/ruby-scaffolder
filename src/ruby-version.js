@@ -1,6 +1,6 @@
 import {promises as fs} from 'node:fs';
+import {execa} from 'execa';
 import {info} from '@travi/cli-messages';
-import execa from '../thirdparty-wrappers/execa';
 
 export default async function (projectRoot) {
   info('Configuring Ruby version');

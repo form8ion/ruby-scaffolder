@@ -1,20 +1,26 @@
-import {exists, promises as fsPromises} from 'fs';
-import {promisify} from 'util';
-import {resolve} from 'path';
+import {exists, promises as fsPromises} from 'node:fs';
+import {promisify} from 'node:util';
+import {fileURLToPath} from 'node:url';
+import {dirname, resolve} from 'node:path';
 import stubbedFs from 'mock-fs';
-import sinon from 'sinon';
+
+import * as td from 'testdouble';
 import {assert} from 'chai';
 import any from '@travi/any';
 import {After, Before, Given, Then, When} from '@cucumber/cucumber';
-import * as execa from '../../../../thirdparty-wrappers/execa';
-import {scaffold} from '../../../../src';
 
-let scaffoldResult;
+let scaffold, scaffoldResult;
 
+const __dirname = dirname(fileURLToPath(import.meta.url));        // eslint-disable-line no-underscore-dangle
 const {readFile} = fsPromises;
 const existsAsync = promisify(exists);
 
 Before(async function () {
+  this.execa = await td.replaceEsm('execa');
+
+  // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
+  ({scaffold} = await import('@form8ion/ruby-scaffolder'));
+
   stubbedFs({
     templates: {
       'Rakefile.rb': await readFile(resolve(__dirname, '../../../../', 'templates/Rakefile.rb')),
@@ -22,9 +28,6 @@ Before(async function () {
       'markdownlint-style.rb': await readFile(resolve(__dirname, '../../../../', 'templates/markdownlint-style.rb'))
     }
   });
-
-  this.sinonSandbox = sinon.createSandbox();
-  this.sinonSandbox.stub(execa, 'default');
 });
 
 After(function () {

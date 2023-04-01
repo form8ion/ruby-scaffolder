@@ -1,7 +1,10 @@
-import {resolve} from 'node:path';
+import {dirname, resolve} from 'node:path';
 import {promises as fs} from 'node:fs';
+import {execa} from 'execa';
 import {info} from '@travi/cli-messages';
-import execa from '../thirdparty-wrappers/execa';
+import {fileURLToPath} from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));        // eslint-disable-line no-underscore-dangle
 
 export default async function (projectRoot) {
   info('Configuring gem dependencies');

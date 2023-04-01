@@ -3,12 +3,13 @@
   "description": "opinionated scaffolder for Ruby projects",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
+  "type": "module",
   "author": "Matt Travi <npm@travi.org> (https://matt.travi.org/)",
   "repository": "form8ion/ruby-scaffolder",
   "bugs": "https://github.com/form8ion/ruby-scaffolder/issues",
   "homepage": "https://npm.im/@form8ion/ruby-scaffolder",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.es.js",
+  "main": "./lib/index.js",
+  "exports": "./lib/index.js",
   "sideEffects": false,
   "scripts": {
     "test": "npm-run-all --print-label --parallel lint:* --parallel test:*",
@@ -16,16 +17,20 @@
     "lint:gherkin": "gherkin-lint",
     "lint:md": "remark . --frail",
     "lint:sensitive": "ban",
+    "lint:publish": "publint",
     "clean": "rimraf ./lib",
     "prebuild": "run-s clean",
     "build": "npm-run-all --print-label --parallel build:*",
     "build:js": "rollup --config",
+    "pregenerate:md": "run-s build",
+    "generate:md": "remark . --output",
     "watch": "run-s 'build:js -- --watch'",
     "prepack": "run-s build",
     "test:unit": "cross-env NODE_ENV=test c8 run-s test:unit:base",
     "test:unit:base": "DEBUG=any vitest run",
     "test:integration": "run-s 'test:integration:base -- --profile noWip'",
-    "test:integration:base": "DEBUG=any cucumber-js test/integration --profile base",
+    "pretest:integration:base": "run-s build",
+    "test:integration:base": "NODE_OPTIONS=\"--loader=testdouble --enable-source-maps\" DEBUG=any cucumber-js test/integration",
     "test:integration:debug": "DEBUG=test run-s test:integration",
     "test:integration:wip": "run-s 'test:integration:base -- --profile wip'",
     "prepare": "husky install"
@@ -40,7 +45,7 @@
   },
   "dependencies": {
     "@travi/cli-messages": "^1.0.1",
-    "execa": "^5.0.0"
+    "execa": "^7.1.1"
   },
   "devDependencies": {
     "@babel/register": "7.21.0",
@@ -62,11 +67,12 @@
     "jest-when": "3.5.2",
     "mock-fs": "5.2.0",
     "npm-run-all": "4.1.5",
+    "publint": "0.1.11",
     "remark-cli": "11.0.0",
     "rimraf": "4.4.1",
     "rollup": "3.20.2",
     "rollup-plugin-auto-external": "2.0.0",
-    "sinon": "15.0.3",
+    "testdouble": "3.17.2",
     "vitest": "0.29.8"
   }
 }

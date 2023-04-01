@@ -1,16 +1,16 @@
 import {promises as fs} from 'node:fs';
 import {resolve} from 'node:path';
+import {execa} from 'execa';
 
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 
-import * as execa from '../thirdparty-wrappers/execa';
 import scaffoldGems from './gems';
 
 describe('Gems', () => {
   beforeEach(() => {
     vi.mock('node:fs');
-    vi.mock('../thirdparty-wrappers/execa');
+    vi.mock('execa');
   });
 
   afterEach(() => {
@@ -26,6 +26,6 @@ describe('Gems', () => {
       resolve(__dirname, '..', 'templates', 'Gemfile.rb'),
       `${projectRoot}/Gemfile`
     );
-    expect(execa.default).toHaveBeenCalledWith('bundle', ['install']);
+    expect(execa).toHaveBeenCalledWith('bundle', ['install']);
   });
 });
