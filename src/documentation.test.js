@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest';
 
-import scaffoldDocumentation from './documentation';
+import scaffoldDocumentation from './documentation.js';
 
 describe('documentation', () => {
   it('should define contribution details', () => {

@@ -2,12 +2,12 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 import {when} from 'jest-when';
 
-import * as rubyVersionScaffolder from './ruby-version';
-import * as rakeScaffolder from './rake';
-import * as gemsScaffolder from './gems';
-import * as documentationScaffolder from './documentation';
-import * as lintingScaffolder from './linting';
-import {scaffold} from './scaffolder';
+import * as rubyVersionScaffolder from './ruby-version.js';
+import * as rakeScaffolder from './rake.js';
+import * as gemsScaffolder from './gems.js';
+import * as documentationScaffolder from './documentation.js';
+import * as lintingScaffolder from './linting.js';
+import {scaffold} from './scaffolder.js';
 
 describe('scaffolder', () => {
   beforeEach(() => {

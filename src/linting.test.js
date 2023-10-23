@@ -4,7 +4,7 @@ import {promises as fs} from 'node:fs';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 
-import scaffoldLinting from './linting';
+import scaffoldLinting from './linting.js';
 
 describe('linting', () => {
   beforeEach(() => {

@@ -4,7 +4,7 @@ import {execa} from 'execa';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 
-import scaffoldRubyVersion from './ruby-version';
+import scaffoldRubyVersion from './ruby-version.js';
 
 describe('ruby-version', () => {
   beforeEach(() => {

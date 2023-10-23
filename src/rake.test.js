@@ -4,7 +4,7 @@ import {resolve} from 'node:path';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 
-import scaffoldRake from './rake';
+import scaffoldRake from './rake.js';
 
 describe('Rake', () => {
   beforeEach(() => {
