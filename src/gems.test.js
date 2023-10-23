@@ -5,7 +5,7 @@ import {execa} from 'execa';
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import any from '@travi/any';
 
-import scaffoldGems from './gems';
+import scaffoldGems from './gems.js';
 
 describe('Gems', () => {
   beforeEach(() => {

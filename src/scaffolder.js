@@ -1,9 +1,10 @@
 import {info} from '@travi/cli-messages';
-import scaffoldRubyVersion from './ruby-version';
-import scaffoldRake from './rake';
-import scaffoldGem from './gems';
-import scaffoldDocumentation from './documentation';
-import scaffoldLinting from './linting';
+
+import scaffoldRubyVersion from './ruby-version.js';
+import scaffoldRake from './rake.js';
+import scaffoldGem from './gems.js';
+import scaffoldDocumentation from './documentation.js';
+import scaffoldLinting from './linting.js';
 
 export async function scaffold({projectRoot}) {
   info('Initializing Ruby project');
